@@ -15,7 +15,7 @@ def get_answer():
         context = data['context']
         
         answer = evaluate_model(question, context)
-        return jsonify({'answer': answer})
+        return answer
     
     except Exception as e:
         return jsonify({'error': str(e)}), 500
