@@ -13,9 +13,30 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <property name="sizeConstraint">
       <enum>QLayout::SizeConstraint::SetMaximumSize</enum>
      </property>
@@ -27,24 +48,68 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="frameShape">
-        <enum>QFrame::Shape::StyledPanel</enum>
+       <property name="styleSheet">
+        <string notr="true"/>
        </property>
-       <property name="frameShadow">
-        <enum>QFrame::Shadow::Raised</enum>
+       <property name="lineWidth">
+        <number>0</number>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="sizeConstraint">
+         <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
-         <widget class="ChatWidget" name="chatWidget" native="true"/>
+         <widget class="ChatWidget" name="chatWidget" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>1</horstretch>
+            <verstretch>1</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="messageEdit"/>
+         <widget class="QLineEdit" name="messageEdit">
+          <property name="styleSheet">
+           <string notr="true">padding:10; margin-left: 10; margin-right: 10;</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
+        <number>10</number>
+       </property>
        <item>
         <widget class="QPushButton" name="discardMessage">
          <property name="minimumSize">
@@ -52,6 +117,9 @@
            <width>100</width>
            <height>0</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">padding:10;</string>
          </property>
          <property name="text">
           <string>Discard</string>
@@ -81,6 +149,9 @@
            <width>100</width>
            <height>0</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">padding:10;</string>
          </property>
          <property name="text">
           <string>Send Message</string>

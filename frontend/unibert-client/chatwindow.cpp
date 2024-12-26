@@ -8,6 +8,7 @@ ChatWindow::ChatWindow(QWidget *parent)
     ui(new Ui::ChatWindow)
 {
     ui->setupUi(this);
+    setContentsMargins(0, 0, 0, 0);
 }
 
 ChatWindow::~ChatWindow()
@@ -18,7 +19,8 @@ ChatWindow::~ChatWindow()
 static bool is_sender = false;
 void ChatWindow::on_sendMessage_clicked() {
     is_sender = !is_sender;
-    chat_widget->addMessage("Test", is_sender);
+    auto text = ui->messageEdit->text();
+    ui->chatWidget->addMessage(text, is_sender);
 }
 
 void ChatWindow::on_messageEdit_returnPressed() {

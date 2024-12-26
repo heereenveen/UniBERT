@@ -19,31 +19,36 @@ set(PROJECT_SOURCES
         mainwindow.ui
 )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(unibert-client
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-        chatwindow.h chatwindow.cpp chatwindow.ui
-        chatmessage.h chatmessage.cpp
-        chatwidget.h chatwidget.cpp
-    )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET unibert-client APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-else()
-    if(ANDROID)
-        add_library(unibert-client SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(unibert-client
-            ${PROJECT_SOURCES}
-        )
-    endif()
-endif()
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
+qt_add_executable(unibert-client
+    MANUAL_FINALIZATION
+    ${PROJECT_SOURCES}
+    chatwindow.h chatwindow.cpp chatwindow.ui
+    chatmessage.h chatmessage.cpp
+    chatwidget.h chatwidget.cpp
+)
+
+#set(SOURCES
+#        main.cpp
+#        mainwindow.cpp
+#        chatwidget.cpp
+#        chatmessage.cpp
+#        chatwindow.cpp
+#)
+#
+#set(HEADERS
+#        chatmessage.h
+#        chatwidget.h
+#        chatwindow.h
+#        mainwindow.h
+#)
+#set(UI_FILES
+#        mainwindow.ui
+#        chatwindow.ui
+#)
+#
+#add_executable(unibert-client ${SOURCES} ${HEADERS} ${UI_FILES})
 
 target_link_libraries(unibert-client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 

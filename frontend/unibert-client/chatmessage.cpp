@@ -17,7 +17,7 @@ ChatMessage::ChatMessage(const QString &text, bool isSender, QWidget *parent)
     message_text_(text),
     is_sender_(isSender)
 {
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 }
 
 ChatMessage::~ChatMessage()
@@ -40,14 +40,14 @@ void ChatMessage::paintEvent(QPaintEvent *event) {
 
     painter.setPen(Qt::black);
     painter.setFont(QFont("Arial", 10));
-    painter.drawText(bubbleRect.adjusted(10, 10, -10, -10), Qt::TextWordWrap, message_text_);
-
+    painter.drawText(bubbleRect.adjusted(10, 10, -10, -10), Qt::TextWordWrap | Qt::TextWrapAnywhere, message_text_);
     QWidget::paintEvent(event);
 }
 
 QSize ChatMessage::sizeHint() const  {
+    auto max = maximumWidth();
     QFontMetrics metrics(font());
-    int textWidth = width() - 40;
-    QRect textRect = metrics.boundingRect(0, 0, textWidth, 0, Qt::TextWordWrap, message_text_);
-    return QSize(width(), textRect.height() + 30);
+
+    QRect textRect = metrics.boundingRect(0, 0, max, 0, Qt::TextWrapAnywhere, message_text_);
+    return QSize(textRect.width(), textRect.height() + 40);
 }
