@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(unibert-client VERSION 0.1 LANGUAGES CXX)
+project(unibert-desktop-client VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -21,7 +21,7 @@ set(PROJECT_SOURCES
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-qt_add_executable(unibert-client
+qt_add_executable(unibert-desktop-client
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
     chatwindow.h chatwindow.cpp chatwindow.ui
@@ -48,17 +48,17 @@ qt_add_executable(unibert-client
 #        chatwindow.ui
 #)
 #
-#add_executable(unibert-client ${SOURCES} ${HEADERS} ${UI_FILES})
+#add_executable(unibert-desktop-client ${SOURCES} ${HEADERS} ${UI_FILES})
 
-target_link_libraries(unibert-client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(unibert-desktop-client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
 if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.unibert-client)
+  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.unibert-desktop-client)
 endif()
-set_target_properties(unibert-client PROPERTIES
+set_target_properties(unibert-desktop-client PROPERTIES
     ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -67,12 +67,12 @@ set_target_properties(unibert-client PROPERTIES
 )
 
 include(GNUInstallDirs)
-install(TARGETS unibert-client
+install(TARGETS unibert-desktop-client
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(unibert-client)
+    qt_finalize_executable(unibert-desktop-client)
 endif()
