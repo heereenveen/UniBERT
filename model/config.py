@@ -1,7 +1,7 @@
 import os
 
 DATA_DIR = os.path.join("data")
-MODEL_DIR = os.path.join(DATA_DIR, "fiot_bert_model")
+MODEL_DIR = "heereenveen/bert_qa_fiot"
 INPUT_FILE = os.path.join(DATA_DIR, "fiot_data.json")
 MODEL_NAME = "bert-base-multilingual-uncased"
 
