@@ -1,16 +1,52 @@
-import json
-from model.config import INPUT_FILE
+from model.config import DB_PATH
+import sqlite3
 
-def load_dataset(file_path=INPUT_FILE):
+def load_dataset():
     try:
-        with open(file_path, "r", encoding="utf-8") as file:
-            data = json.load(file)
-            return data["data"][0]["paragraphs"]
-    except FileNotFoundError:
-        print(f"Помилка: Файл {file_path} не знайдено")
-        return None
-    except json.JSONDecodeError:
-        print(f"Помилка: Файл {file_path} має неправильний формат JSON")
+        connection = sqlite3.connect(DB_PATH)
+        cursor = connection.cursor()
+        
+        cursor.execute("""
+            SELECT c.context, q.question, q.answer, q.answer_start 
+            FROM contexts c 
+            JOIN qa_pairs q ON c.id = q.context_id
+        """)
+        
+        paragraphs = []
+        current_context = None
+        current_qas = []
+        
+        for row in cursor.fetchall():
+            context, question, answer, answer_start = row
+            
+            if current_context != context:
+                if current_context is not None:
+                    paragraphs.append({
+                        "context": current_context,
+                        "qas": current_qas
+                    })
+                current_context = context
+                current_qas = []
+            
+            current_qas.append({
+                "question": question,
+                "answers": [{
+                    "text": answer,
+                    "answer_start": answer_start
+                }]
+            })
+        
+        if current_context is not None:
+            paragraphs.append({
+                "context": current_context,
+                "qas": current_qas
+            })
+            
+        connection.close()
+        return paragraphs
+        
+    except sqlite3.Error as e:
+        print(f"Помилка при роботі з базою даних: {str(e)}")
         return None
     except Exception as e:
         print(f"Виникла помилка при завантаженні даних: {str(e)}")

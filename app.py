@@ -1,8 +1,14 @@
 from flask import Flask, request, jsonify
 from model.evaluation import answer_question
+from model.database.init_db import init_database
+import os
+from model.config import DB_PATH
 
 app = Flask(__name__)
 
+if not os.path.exists(DB_PATH):
+    init_database()
+    
 @app.route('/BERT/answer', methods=['POST'])
 def get_answer():
     try:

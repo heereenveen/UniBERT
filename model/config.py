@@ -5,6 +5,8 @@ MODEL_DIR = "heereenveen/bert_qa_fiot"
 INPUT_FILE = os.path.join(DATA_DIR, "fiot_data.json")
 MODEL_NAME = "bert-base-multilingual-uncased"
 
+DB_PATH = "data/fiot_qa.db"
+
 TRAINING_ARGS = {
     "output_dir": "./results",
     "learning_rate": 5e-5,
@@ -20,10 +22,3 @@ TRAINING_ARGS = {
 MAX_LENGTH = 512
 TRUNCATION = True
 PADDING = "max_length"
-
-DB_CONFIG = {
-    'host': 'localhost',
-    'database': 'fiot_qa_db',
-    'user': 'username',
-    'password': 'password'
-}
