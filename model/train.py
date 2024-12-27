@@ -1,28 +1,30 @@
-from transformers import Trainer, TrainingArguments, AutoModelForQuestionAnswering, AutoTokenizer
+from transformers import AutoTokenizer, AutoModelForQuestionAnswering, TrainingArguments, Trainer
 from datasets import Dataset
-from model.data_preparation import preprocess_data, load_full_dataset
 from model.config import MODEL_NAME, TRAINING_ARGS
+from model.data_preparation import load_dataset, preprocess_data
 
 def train_model():
-    raw_data = {"paragraphs": load_full_dataset()}
-    dataset = Dataset.from_dict(raw_data)
-
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
     model = AutoModelForQuestionAnswering.from_pretrained(MODEL_NAME)
 
-    print("Data tokenization...")
-    tokenized_dataset = dataset.map(lambda x: preprocess_data(x, tokenizer), batched=True)
+    paragraphs = load_dataset()
+    if not paragraphs:
+        return None, None
 
-    print("Training model...")
+    dataset = Dataset.from_dict({"paragraphs": paragraphs})
+    tokenized_dataset = dataset.map(
+        lambda x: preprocess_data(x, tokenizer), 
+        batched=True, 
+        remove_columns=["paragraphs"]
+    )
+
     training_args = TrainingArguments(**TRAINING_ARGS)
+
     trainer = Trainer(
         model=model,
         args=training_args,
-        train_dataset=tokenized_dataset,
-        tokenizer=tokenizer
+        train_dataset=tokenized_dataset
     )
 
     trainer.train()
-    model.save_pretrained(TRAINING_ARGS["output_dir"])
-    tokenizer.save_pretrained(TRAINING_ARGS["output_dir"])
-    print("Model was trained and saved!")
+    return model, tokenizer
