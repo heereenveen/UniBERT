@@ -20,3 +20,10 @@ TRAINING_ARGS = {
 MAX_LENGTH = 512
 TRUNCATION = True
 PADDING = "max_length"
+
+DB_CONFIG = {
+    'host': 'localhost',
+    'database': 'fiot_qa_db',
+    'user': 'username',
+    'password': 'password'
+}
