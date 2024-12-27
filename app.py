@@ -1,30 +1,24 @@
 from flask import Flask, request, jsonify
-from model.evaluation import evaluate_model
-from model.train import train_model
+from model.evaluation import answer_question
+from model.database.init_db import init_database
+import os
+from model.config import DB_PATH
 
 app = Flask(__name__)
 
+if not os.path.exists(DB_PATH):
+    init_database()
+    
 @app.route('/BERT/answer', methods=['POST'])
 def get_answer():
     try:
         data = request.get_json()
-        if not data or 'question' not in data or 'context' not in data:
-            return jsonify({'error': 'Необхідно надати питання та контекст'}), 400
+        if not data or 'question' not in data:
+            return jsonify({'error': 'Необхідно надати питання'}), 400
         
         question = data['question']
-        context = data['context']
-        
-        answer = evaluate_model(question, context)
-        return answer
-    
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-@app.route('/BERT/train', methods=['POST'])
-def start_training():
-    try:
-        train_model()
-        return jsonify({'message': 'Модель успішно навчена'})
+        answer = answer_question(question)
+        return jsonify({'answer': answer})
     
     except Exception as e:
         return jsonify({'error': str(e)}), 500
