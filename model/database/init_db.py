@@ -1,12 +1,11 @@
 import os
 import json
 import sqlite3
-from model.config import DB_PATH
 
 def init_database():
     os.makedirs('data', exist_ok=True)
     
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect("data/fiot_qa.db")
     cursor = conn.cursor()
     
     cursor.execute('''

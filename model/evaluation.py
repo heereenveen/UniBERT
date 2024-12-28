@@ -1,6 +1,6 @@
 from transformers import pipeline
-from model.config import MODEL_DIR
-from model.database.db_manager import DatabaseManager
+from config import MODEL_DIR
+from database.db_manager import DatabaseManager
 
 def answer_question(question: str):
     qa_pipeline = pipeline(

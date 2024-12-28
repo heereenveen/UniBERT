@@ -1,7 +1,7 @@
 from transformers import AutoTokenizer, AutoModelForQuestionAnswering, TrainingArguments, Trainer
 from datasets import Dataset
-from model.config import MODEL_NAME, TRAINING_ARGS
-from model.data_preparation import load_dataset, preprocess_data
+from config import MODEL_NAME, TRAINING_ARGS
+from data_preparation import load_dataset, preprocess_data
 
 def train_model():
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)

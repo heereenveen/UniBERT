@@ -1,4 +1,4 @@
-from model.config import DB_PATH
+from config import DB_PATH
 import sqlite3
 
 def load_dataset():

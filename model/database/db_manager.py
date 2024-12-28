@@ -1,9 +1,8 @@
 import sqlite3
-from model.config import DB_PATH
 
 class DatabaseManager:
     def __init__(self):
-        self.connection = sqlite3.connect(DB_PATH)
+        self.connection = sqlite3.connect("data/fiot_qa.db")
         self.create_tables()
         
     def create_tables(self):

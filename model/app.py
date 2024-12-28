@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
-from model.evaluation import answer_question
-from model.database.init_db import init_database
+from evaluation import answer_question
+from database.init_db import init_database
 import os
-from model.config import DB_PATH
+from config import DB_PATH
 
 app = Flask(__name__)
 
