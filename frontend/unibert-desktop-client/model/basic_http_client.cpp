@@ -31,15 +31,9 @@ std::future<std::string> BasicHttpClient::SendEmptyGetRequest(const std::string 
 
             std::vector<OptionBase *> options;
 
-
             options.push_back(new options::Url(url + route));
             options.push_back(new options::Port(port));
             options.push_back(new options::WriteStream(&response));
-
-            Forms formParts;
-            formParts.push_back(new FormParts::Content("question", "value1"));
-            formParts.push_back(new FormParts::Content("context", "value1"));
-            options.push_back(new options::HttpPost(formParts));
 
             myRequest.setOpt( options.begin(), options.end());
 
@@ -64,7 +58,8 @@ std::future<std::string> BasicHttpClient::SendEmptyGetRequest(const std::string 
     return future;
 }
 
-std::future<std::string> BasicHttpClient::SendPostRequest(const std::string &route, const std::string &) {
+std::future<std::string> BasicHttpClient::SendPostRequest(const std::string &route, const PostHeaderData& post_header_data_) {
+
 }
 
 
