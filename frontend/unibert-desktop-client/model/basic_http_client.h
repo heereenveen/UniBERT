@@ -7,24 +7,23 @@
 #include <vector>
 
 class BasicHttpClient {
-public:
+ public:
   // we set base url,
   // relative to which all requests with custom routes will go
-  explicit BasicHttpClient(const std::string &base_url = "localhost", int port = 80);
+  explicit BasicHttpClient(const std::string& base_url = "localhost",
+                           int port = 80);
   ~BasicHttpClient();
 
-public:
+ public:
   std::future<std::string> SendEmptyGetRequest(const std::string& route = "");
 
   using PostHeaderData = std::vector<std::pair<std::string, std::string>>;
   // std::future<std::string> SendPostRequest(const std::string& route = "",
   //                                          const PostHeaderData& post_header_data);
 
-protected:
+ protected:
   std::string url_;
   int port_;
 };
 
-
-
-#endif //BASIC_HTTP_CLIENT_H
+#endif  //BASIC_HTTP_CLIENT_H
