@@ -19,12 +19,18 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtest-dev libgmock-dev cmake ninja-build build-essential
+          sudo apt-get install -y | 
+          libgtest-dev |
+          libgmock-dev |
+          cmake |
+          ninja-build |
+          build-essential |
+          libcurlpp-dev
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: '6.8.1' # Specify your Qt version
+          version: '6.8.1'
           host: 'linux'
           target: 'desktop'
 
