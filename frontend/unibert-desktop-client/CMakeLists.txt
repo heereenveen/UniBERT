@@ -96,3 +96,5 @@ target_link_libraries(tests-all ${GTESTLIBS})
 
 include(GoogleTest)
 gtest_discover_tests(tests-all)
+
+
