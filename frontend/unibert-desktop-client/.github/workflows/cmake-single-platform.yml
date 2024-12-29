@@ -1,0 +1,32 @@
+name: CMake CI
+
+on:
+  push:
+    branches:
+          - '**' # matches every branch
+  pull_request:
+    branches:
+          - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install gtest
+      run: sudo apt-get install libgtest-dev libgmock-dev
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+
+    - uses: actions/checkout@v4
+
+    - name: Configure CMake
+      run: cmake -S . -B build
+      
+    - name: Build
+      run: cmake --build build
+
+    - name: Test
+      working-directory: build
+      run: ctest
