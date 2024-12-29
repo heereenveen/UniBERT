@@ -14,19 +14,20 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+        view/mainwindow.cpp
+        view/mainwindow.h
+        view/mainwindow.ui
 )
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/view)
 
 qt_add_executable(unibert-desktop-client
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
-    chatwindow.h chatwindow.cpp chatwindow.ui
-    chatmessage.h chatmessage.cpp
-    chatwidget.h chatwidget.cpp
+        view/chatwindow.h view/chatwindow.cpp view/chatwindow.ui
+        view/chatmessage.h view/chatmessage.cpp
+        view/chatwidget.h view/chatwidget.cpp
+        model/basic_http_client.cpp model/basic_http_client.h
 )
 
 #set(SOURCES
@@ -50,7 +51,10 @@ qt_add_executable(unibert-desktop-client
 #
 #add_executable(unibert-desktop-client ${SOURCES} ${HEADERS} ${UI_FILES})
 
-target_link_libraries(unibert-desktop-client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+include(FindPkgConfig)
+pkg_check_modules(CURLPP REQUIRED curlpp)
+
+target_link_libraries(unibert-desktop-client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${CURLPP_LDFLAGS})
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

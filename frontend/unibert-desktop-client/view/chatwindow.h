@@ -4,7 +4,7 @@
 #include <QWidget>
 
 #include "chatwidget.h"
-#include "ui_chatwindow.h"
+#include "../cmake-build-debug/unibert-desktop-client_autogen/include/ui_chatwindow.h"
 
 
 class ChatWindow : public QWidget
