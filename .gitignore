@@ -2,3 +2,4 @@
 cmake-build-debug/
 build/
 .venv
+model/__pycache__
