@@ -20,11 +20,11 @@ jobs:
         uses: jidicula/clang-format-action@v4.14.0
         with:
           clang-format-version: '13'
-          check-path: 'frontend/unibert-desktop-client/'
-
+          check-path: 'frontend/unibert-desktop-client'
+          fallback-style: 'Google'
   build-and-test:
     runs-on: ubuntu-latest
-
+    name: Build client and run Tests
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
