@@ -14,6 +14,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         main.cpp
+
         view/mainwindow.cpp
         view/mainwindow.h
         view/mainwindow.ui
@@ -80,3 +81,18 @@ install(TARGETS unibert-desktop-client
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(unibert-desktop-client)
 endif()
+
+set(GTESTLIBS GTest::gtest_main GTest::GTest GTest::Main GTest::gmock_main)
+find_package(GTest REQUIRED)
+
+enable_testing()
+
+set(TESTS
+        model/http_client_unittest.cpp
+)
+
+add_executable(tests-all ${TESTS})
+target_link_libraries(tests-all ${GTESTLIBS})
+
+include(GoogleTest)
+gtest_discover_tests(tests-all)
