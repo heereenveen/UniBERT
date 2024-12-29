@@ -4,9 +4,11 @@ on:
   push:
     paths:
       - 'frontend/unibert-desktop-client/**'
+      - '.github/workflows/cmake-single-platform.yml'
   pull_request:
     paths:
       - 'frontend/unibert-desktop-client/**'
+      - '.github/workflows/cmake-single-platform.yml'
 
 jobs:
   build:
@@ -19,12 +21,12 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y | 
-          libgtest-dev |
-          libgmock-dev |
-          cmake |
-          ninja-build |
-          build-essential |
+          sudo apt-get install -y \
+          libgtest-dev \
+          libgmock-dev \
+          cmake \
+          ninja-build \
+          build-essential \
           libcurlpp-dev
 
       - name: Install Qt
