@@ -30,11 +30,11 @@ UniBERT is a chatbot to help students of the Faculty of Physical Engineering and
     https://github.com/heereenveen/UniBERT/commit/29481d10119d878f6a279499361b56cc87158ab0
 
 @notnuff:
-    Створений проєкт для клієнту (CMakeLists.txt);
-    Обраний стиль коду для проєкту (Google code style);
-    Налаштований лінтер та форматтер (clang-format);
-    Налаштовані хуки на комміт і пуш, з необхідними перевірками, підключені Github Actions;
-    https://github.com/heereenveen/UniBERT/pull/6
+- Створений проєкт для клієнту (CMakeLists.txt);
+- Обраний стиль коду для проєкту (Google code style);
+- Налаштований лінтер та форматтер (clang-format);
+- Налаштовані хуки на комміт і пуш, з необхідними перевірками, підключені Github Actions;
+- link: https://github.com/heereenveen/UniBERT/pull/6
     
 
 ### **№ 3  Розробка структури застосунку**
@@ -46,6 +46,7 @@ UniBERT is a chatbot to help students of the Faculty of Physical Engineering and
   https://github.com/heereenveen/UniBERT/commit/bace959a1d27891739324db65cba1045c85c3230
 
 @notnuff:
+    
 
 ### **№ 4  Імплементація інтерактивного прототипу**
 
