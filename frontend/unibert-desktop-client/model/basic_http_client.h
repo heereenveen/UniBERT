@@ -17,7 +17,8 @@ public:
   std::future<std::string> SendEmptyGetRequest(const std::string& route = "");
 
   using PostHeaderData = std::vector<std::pair<std::string, std::string>>;
-  std::future<std::string> SendPostRequest(const std::string& route = "", const PostHeaderData& post_header_data);
+  // std::future<std::string> SendPostRequest(const std::string& route = "",
+  //                                          const PostHeaderData& post_header_data);
 
 protected:
   std::string url_;

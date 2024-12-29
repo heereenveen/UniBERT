@@ -42,8 +42,8 @@ jobs:
 
       - name: Build
         working-directory: frontend/unibert-desktop-client/build
-        run: cmake -DCMAKE_PREFIX_PATH=~/Qt/6.8.1/gcc_64/lib/cmake/ --build .
+        run: cmake --build .
 
       - name: Test
         working-directory: frontend/unibert-desktop-client/build
-        run: ctest -DCMAKE_PREFIX_PATH=~/Qt/6.8.1/gcc_64/lib/cmake/ --output-on-failure
+        run: ctest --output-on-failure

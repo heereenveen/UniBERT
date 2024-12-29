@@ -58,8 +58,9 @@ std::future<std::string> BasicHttpClient::SendEmptyGetRequest(const std::string 
     return future;
 }
 
-std::future<std::string> BasicHttpClient::SendPostRequest(const std::string &route, const PostHeaderData& post_header_data_) {
-
-}
+// std::future<std::string> BasicHttpClient::SendPostRequest(const std::string &route,
+//                                                           const PostHeaderData& post_header_data_) {
+//
+// }
 
 
