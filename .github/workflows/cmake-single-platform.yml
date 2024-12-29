@@ -1,0 +1,41 @@
+name: CMake CI
+
+on:
+  push:
+    paths:
+      - 'frontend/unibert-desktop-client/**'
+  pull_request:
+    paths:
+      - 'frontend/unibert-desktop-client/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtest-dev libgmock-dev cmake ninja-build build-essential
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.1' # Specify your Qt version
+          host: 'linux'
+          target: 'desktop'
+
+      - name: Configure CMake
+        working-directory: frontend/unibert-desktop-client
+        run: cmake -DCMAKE_PREFIX_PATH=~/Qt/6.8.1/gcc_64/lib/cmake/ -S . -B build -G Ninja
+
+      - name: Build
+        working-directory: frontend/unibert-desktop-client/build
+        run: cmake -DCMAKE_PREFIX_PATH=~/Qt/6.8.1/gcc_64/lib/cmake/ --build .
+
+      - name: Test
+        working-directory: frontend/unibert-desktop-client/build
+        run: ctest -DCMAKE_PREFIX_PATH=~/Qt/6.8.1/gcc_64/lib/cmake/ --output-on-failure
