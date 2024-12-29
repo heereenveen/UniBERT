@@ -33,7 +33,9 @@ UniBERT is a chatbot to help students of the Faculty of Physical Engineering and
 - Створений проєкт для клієнту (CMakeLists.txt);
 - Обраний стиль коду для проєкту (Google code style);
 - Налаштований лінтер та форматтер (clang-format);
-- Налаштовані хуки на комміт і пуш, з необхідними перевірками, підключені Github Actions;
+- Налаштовані хуки на комміт і пуш, з необхідними перевірками 
+(PS: щоб їх побачити, необхідно вивантажити директорію і заглянути в .git/pre-push та .git/pre-commit)
+- Також підключені Github Actions;
 - link: https://github.com/heereenveen/UniBERT/pull/6
     
 
