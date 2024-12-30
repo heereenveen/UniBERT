@@ -76,6 +76,9 @@ UniBERT is a chatbot to help students of the Faculty of Physical Engineering and
     https://github.com/heereenveen/UniBERT/commit/e168e330b4840ede956050e1b8d7840a693d225d#diff-8c26351b04b3158996fbb6d2ebe941418658927b1f6755a4f3cc170aa48c0910
 
 @notnuff:
+- Було підключено клієнт до бекенду у вигляді сервера на python
+- Відповідно, була реалізована справжня робота клієнта з віддаленим джерелом даних
+- link: https://github.com/heereenveen/UniBERT/pull/10
 
 ### **№ 7  Розгортання програмного забезпечення**
 
