@@ -1,5 +1,8 @@
 #include "server_answer_provider.h"
 
+#include <format>
+#include <sstream>
+
 #include "../network/http_client_i.h"
 
 ServerAnswerSupplier::ServerAnswerSupplier(
@@ -13,5 +16,13 @@ void ServerAnswerSupplier::SetHttpClient(
 }
 
 std::string ServerAnswerSupplier::GetAnswer(const std::string& question) {
-  return http_client_->SendEmptyGetRequest(question);
+  std::stringstream cookedJson;
+  cookedJson << "{\n";
+  cookedJson << R"( "question": )";
+  cookedJson << '"' << question << '"';
+  cookedJson << "\n}";
+
+  auto answerRaw =  http_client_->SendJSONPostRequest("/BERT/answer", cookedJson.str());
+
+  return answerRaw;
 }

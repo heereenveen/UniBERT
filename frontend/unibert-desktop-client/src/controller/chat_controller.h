@@ -16,7 +16,7 @@ class ChatController : public QObject {
  public:
   void SetUI(ChatWindow* chat_window);
   void SetAnswersProvider(
-      const std::shared_ptr<AnswersProvider_I>& http_client);
+      const std::shared_ptr<AnswersProvider_I>& answers_provider);
 
  public slots:
   void onUiSendQuestion(const QString& str);
