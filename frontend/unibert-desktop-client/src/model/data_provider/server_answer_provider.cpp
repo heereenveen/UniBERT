@@ -5,6 +5,8 @@
 
 #include "../network/http_client_i.h"
 
+#include <nlohmann/json.hpp>
+
 ServerAnswerSupplier::ServerAnswerSupplier(
     const std::shared_ptr<HttpClient_I>& httpClient) {
   SetHttpClient(httpClient);
@@ -16,14 +18,12 @@ void ServerAnswerSupplier::SetHttpClient(
 }
 
 std::string ServerAnswerSupplier::GetAnswer(const std::string& question) {
-  std::stringstream cookedJson;
-  cookedJson << "{\n";
-  cookedJson << R"( "question": )";
-  cookedJson << '"' << question << '"';
-  cookedJson << "\n}";
+  nlohmann::json cookedJson = {{"question", question}};
 
-  auto answerRaw =
-      http_client_->SendJSONPostRequest("/BERT/answer", cookedJson.str());
+  auto answerRawJSON =
+      http_client_->SendJSONPostRequest("/BERT/answer", cookedJson.dump());
 
-  return answerRaw;
+  auto answerJSON = nlohmann::json::parse(answerRawJSON);
+  auto answerStr = answerJSON["answer"].get<std::string>();
+  return answerStr;
 }

@@ -53,7 +53,13 @@ qt_add_executable(unibert-desktop-client
 include(FindPkgConfig)
 pkg_check_modules(CURLPP REQUIRED curlpp)
 
-target_link_libraries(unibert-desktop-client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${CURLPP_LDFLAGS})
+add_subdirectory(${nlohmann_json_source}
+        third-party/json)
+
+target_link_libraries(unibert-desktop-client PRIVATE
+        Qt${QT_VERSION_MAJOR}::Widgets
+        ${CURLPP_LDFLAGS}
+        nlohmann_json::nlohmann_json)
 
 include(GNUInstallDirs)
 install(TARGETS unibert-desktop-client
