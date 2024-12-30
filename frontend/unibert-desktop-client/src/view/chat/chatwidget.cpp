@@ -46,13 +46,13 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent) {
 
 ChatWidget::~ChatWidget() {}
 
-void ChatWidget::addMessage(const QString& text, bool isSender) {
-  auto* message = new ChatMessage(text, isSender, this);
+void ChatWidget::addMessage(const QString& text, bool isQuestion) {
+  auto* message = new ChatMessage(text, isQuestion, this);
   message->setMaximumWidth(scrollArea->width() * 0.6);
 
   QHBoxLayout* container = new QHBoxLayout();
 
-  if (isSender) {
+  if (isQuestion) {
     // Add stretch space to the left and the message to the right
     container->addStretch();
     container->addWidget(message);

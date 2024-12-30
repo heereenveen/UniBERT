@@ -6,16 +6,21 @@
 #include <string>
 #include <vector>
 
-class BasicHttpClient {
+#include "http_client_i.h"
+
+class BasicHttpClient : public HttpClient_I {
  public:
   // we set base url,
   // relative to which all requests with custom routes will go
-  explicit BasicHttpClient(const std::string& base_url = "localhost",
-                           int port = 80);
-  ~BasicHttpClient();
+  BasicHttpClient() = default;
+  virtual ~BasicHttpClient() override = default;
 
  public:
-  std::future<std::string> SendEmptyGetRequest(const std::string& route = "");
+  virtual void SetInitData(const HttpInitData& init_data) override;
+
+ public:
+  virtual std::string SendEmptyGetRequest(
+      const std::string& route = "") override;
 
   using PostHeaderData = std::vector<std::pair<std::string, std::string>>;
   // std::future<std::string> SendPostRequest(const std::string& route = "",

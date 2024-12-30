@@ -12,14 +12,27 @@ class ChatWindow : public QWidget {
   explicit ChatWindow(QWidget* parent = nullptr);
   ~ChatWindow();
 
+ public:
+  const Ui::ChatWindow* UI() const;
+
+  // autogen slots
  public slots:
   void on_sendMessage_clicked();
   void on_messageEdit_returnPressed();
   void on_discardMessage_clicked();
 
+  // custom slots, we will use them in controller
+ public slots:
+  void onSetQuestion(const QString& str);
+  void onAddAnswerToChat(const QString& str);
+  void onAddQuestionToChat(const QString& str);
+
+  // customSignals
+ signals:
+  void sendQuestion(const QString& str);
+
  protected:
   Ui::ChatWindow* ui;
-  ChatWidget* chat_widget;
 };
 
 #endif  // CHATWINDOW_H

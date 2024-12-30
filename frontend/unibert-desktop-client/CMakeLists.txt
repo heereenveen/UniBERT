@@ -6,70 +6,54 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
-set(PROJECT_SOURCES
-        main.cpp
+# including directory so Qt can see it
+# if Qt can see our view folder, we can promote classes in Qt Designer
+# if we can promote classes in Qt Designer, we can make profit.
+include_directories(src/view/chat)
 
-        view/mainwindow.cpp
-        view/mainwindow.h
-        view/mainwindow.ui
+file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.inl
 )
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/view)
+# Collect all source files
+file(GLOB_RECURSE COMPILATION_UNITS_TMP CONFIGURE_DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c++
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cc
+)
+
+# Filter out the test files
+set(COMPILATION_UNITS "")
+foreach(file ${COMPILATION_UNITS_TMP})
+    if (NOT file MATCHES "(test|main)\\.(cpp|c\\+\\+|cc)$")
+        list(APPEND COMPILATION_UNITS ${file})
+    endif()
+endforeach()
+
+file(GLOB_RECURSE UI CONFIGURE_DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/view/*.ui
+)
 
 qt_add_executable(unibert-desktop-client
-    MANUAL_FINALIZATION
-    ${PROJECT_SOURCES}
-        view/chatwindow.h view/chatwindow.cpp view/chatwindow.ui
-        view/chatmessage.h view/chatmessage.cpp
-        view/chatwidget.h view/chatwidget.cpp
-        model/basic_http_client.cpp model/basic_http_client.h
+        MANUAL_FINALIZATION
+        ${HEADERS}
+        ${UI}
+        ${COMPILATION_UNITS}
+        src/main.cpp
 )
-
-#set(SOURCES
-#        main.cpp
-#        mainwindow.cpp
-#        chatwidget.cpp
-#        chatmessage.cpp
-#        chatwindow.cpp
-#)
-#
-#set(HEADERS
-#        chatmessage.h
-#        chatwidget.h
-#        chatwindow.h
-#        mainwindow.h
-#)
-#set(UI_FILES
-#        mainwindow.ui
-#        chatwindow.ui
-#)
-#
-#add_executable(unibert-desktop-client ${SOURCES} ${HEADERS} ${UI_FILES})
 
 include(FindPkgConfig)
 pkg_check_modules(CURLPP REQUIRED curlpp)
 
 target_link_libraries(unibert-desktop-client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${CURLPP_LDFLAGS})
-
-# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
-# If you are developing for iOS or macOS you should consider setting an
-# explicit, fixed bundle identifier manually though.
-if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.unibert-desktop-client)
-endif()
-set_target_properties(unibert-desktop-client PROPERTIES
-    ${BUNDLE_ID_OPTION}
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE TRUE
-)
 
 include(GNUInstallDirs)
 install(TARGETS unibert-desktop-client
@@ -78,18 +62,18 @@ install(TARGETS unibert-desktop-client
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(unibert-desktop-client)
-endif()
+qt_finalize_executable(unibert-desktop-client)
+
+file(GLOB_RECURSE TESTS CONFIGURE_DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*test.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*test.c++
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*test.cс
+)
 
 set(GTESTLIBS GTest::gtest_main GTest::GTest GTest::Main GTest::gmock_main)
 find_package(GTest REQUIRED)
 
 enable_testing()
-
-set(TESTS
-        model/http_client_unittest.cpp
-)
 
 add_executable(tests-all ${TESTS})
 target_link_libraries(tests-all ${GTESTLIBS})

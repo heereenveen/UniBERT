@@ -12,8 +12,8 @@ class ChatWidget : public QWidget {
   explicit ChatWidget(QWidget* parent = nullptr);
   ~ChatWidget() override;
 
- public:
-  void addMessage(const QString& text, bool isSender);
+ public slots:
+  void addMessage(const QString& text, bool isQuestion);
 
  public slots:
   void resizeEvent(QResizeEvent* event) override;
