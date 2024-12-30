@@ -65,7 +65,9 @@ UniBERT is a chatbot to help students of the Faculty of Physical Engineering and
   https://github.com/heereenveen/UniBERT/commit/64b26e84a29771a76c6085a3c1d1f146fcfc887a
 
 @notnuff:
-
+  Імплементовано:
+  https://github.com/heereenveen/UniBERT/pull/9
+  
 ### **№ 5  Імплементація інтеграції з віддаленими джерелами даних**
 
 @heereenveen:
