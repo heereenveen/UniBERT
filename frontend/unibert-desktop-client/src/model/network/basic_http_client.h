@@ -22,9 +22,8 @@ class BasicHttpClient : public HttpClient_I {
   virtual std::string SendEmptyGetRequest(
       const std::string& route = "") override;
 
-  using PostHeaderData = std::vector<std::pair<std::string, std::string>>;
-  // std::future<std::string> SendPostRequest(const std::string& route = "",
-  //                                          const PostHeaderData& post_header_data);
+  virtual std::string SendJSONPostRequest(const std::string& route,
+                                          const std::string& json) override;
 
  protected:
   std::string url_;

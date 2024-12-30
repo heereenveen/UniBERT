@@ -1,0 +1,6 @@
+[submodule "frontend/unibert-desktop-client/src/third-party/json"]
+	path = frontend/unibert-desktop-client/third-party/json
+	url = git@github.com:nlohmann/json.git
+[submodule "frontend/unibert-desktop-client/third-party/json"]
+	path = frontend/unibert-desktop-client/third-party/json
+	url = git@github.com:nlohmann/json.git

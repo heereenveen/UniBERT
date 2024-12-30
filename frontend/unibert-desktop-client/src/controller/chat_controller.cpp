@@ -12,9 +12,9 @@ void ChatController::SetUI(ChatWindow* chat_window) {
 }
 
 void ChatController::SetAnswersProvider(
-    const std::shared_ptr<AnswersProvider_I>& http_client) {
+    const std::shared_ptr<AnswersProvider_I>& answers_provider) {
 
-  this->answers_provider_ = http_client;
+  this->answers_provider_ = answers_provider;
 }
 
 void ChatController::onUiSendQuestion(const QString& str) {

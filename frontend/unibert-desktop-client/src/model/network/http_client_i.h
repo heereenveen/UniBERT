@@ -17,6 +17,11 @@ class HttpClient_I {
  public:
   // that's the route relative to base url
   virtual std::string SendEmptyGetRequest(const std::string& route) = 0;
+
+  // clang-format off
+  virtual std::string SendJSONPostRequest(const std::string& route,
+                                          const std::string& json) = 0;
+  // clang-format on
 };
 
 #endif  //HTTP_CLIENT_I_H
