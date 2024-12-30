@@ -23,7 +23,7 @@ class BasicHttpClient : public HttpClient_I {
       const std::string& route = "") override;
 
   virtual std::string SendJSONPostRequest(const std::string& route,
-                                   const std::string& json) override;
+                                          const std::string& json) override;
 
  protected:
   std::string url_;
