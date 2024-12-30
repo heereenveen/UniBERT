@@ -22,7 +22,8 @@ std::string ServerAnswerSupplier::GetAnswer(const std::string& question) {
   cookedJson << '"' << question << '"';
   cookedJson << "\n}";
 
-  auto answerRaw =  http_client_->SendJSONPostRequest("/BERT/answer", cookedJson.str());
+  auto answerRaw =
+      http_client_->SendJSONPostRequest("/BERT/answer", cookedJson.str());
 
   return answerRaw;
 }
