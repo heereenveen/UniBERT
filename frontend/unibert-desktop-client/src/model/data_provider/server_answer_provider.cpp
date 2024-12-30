@@ -1,6 +1,5 @@
 #include "server_answer_provider.h"
 
-#include <format>
 #include <sstream>
 
 #include "../network/http_client_i.h"
