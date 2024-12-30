@@ -13,3 +13,6 @@ MainWindow::MainWindow(QWidget* parent)
 MainWindow::~MainWindow() {
   delete ui;
 }
+const Ui::MainWindow* MainWindow::UI() {
+  return ui;
+}

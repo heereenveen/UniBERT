@@ -1,8 +1,10 @@
 #ifndef CHATMESSAGE_H
 #define CHATMESSAGE_H
 
+#include <QFrame>
 #include <QWidget>
 
+class QLabel;
 namespace Ui {
 class ChatMessage;
 }
@@ -15,14 +17,24 @@ class ChatMessage : public QWidget {
                        QWidget* parent = nullptr);
   ~ChatMessage();
 
- protected:
-  void paintEvent(QPaintEvent* event) override;
+ public:
+  void paintEvent(QPaintEvent* event);
 
+ protected:
+  QSize textSize() const;
   QSize sizeHint() const override;
 
- private:
+  int maxWidthForText() const;
+
+ protected:
+  QLabel* textLabel;
   QString message_text_;
+
+  int paddingToText;
+
+ protected:
   bool is_sender_;
+
   // Ui::ChatMessage *ui;
 };
 
