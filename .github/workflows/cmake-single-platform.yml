@@ -68,3 +68,42 @@ jobs:
       - name: Test
         working-directory: frontend/unibert-desktop-client/build
         run: ctest --output-on-failure
+
+  push:
+    branches:
+      - main
+    paths:
+      - 'frontend/unibert-desktop-client/**'
+      - '.github/workflows/cmake-single-platform.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'frontend/unibert-desktop-client/**'
+      - '.github/workflows/cmake-single-platform.yml'
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' && github.event.head_commit.message != 'skip-release' }}
+    name: Deploy build artifacts
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create GitHub release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          release_name: Release v1.0.${{ github.run_number }}
+          draft: false
+          prerelease: false
+
+      - name: Upload build artifacts to GitHub Releases
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: frontend/unibert-desktop-client/build/your-binary-or-archive
+          asset_name: your-binary-or-archive-name
+          asset_content_type: application/octet-stream
