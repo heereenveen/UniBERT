@@ -87,5 +87,6 @@ UniBERT is a chatbot to help students of the Faculty of Physical Engineering and
     - code quality: перевірка форматування коду через black та лінтер flake8,
     - commit-check: перевірка назв комітів на відповідність формату  conventional commits,
     - build-and-test: збірка моделі та перевірка на запуск.
+- link: https://github.com/heereenveen/UniBERT/pull/13
 
 @notnuff:
