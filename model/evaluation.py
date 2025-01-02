@@ -2,14 +2,15 @@ from transformers import pipeline
 from config import MODEL_DIR
 from database.db_manager import DatabaseManager
 
+
 def answer_question(question: str):
     qa_pipeline = pipeline(
-        "question-answering", 
+        "question-answering",
         model=MODEL_DIR,
         tokenizer=MODEL_DIR,
-        handle_impossible_answer=True
+        handle_impossible_answer=True,
     )
-    
+
     db = DatabaseManager()
     contexts = db.get_contexts()
     qa_pairs = db.get_qa_pairs()
@@ -26,19 +27,22 @@ def answer_question(question: str):
                 context=context[0],
                 max_answer_len=200,
                 handle_impossible_answer=True,
-                top_k=1
+                top_k=1,
             )
-            if result['score'] > 0.3:
-                answers.append({
-                    'answer': result['answer'],
-                    'score': result['score'],
-                    'context': context[0]
-                })
+            if result["score"] > 0.3:
+                answers.append(
+                    {
+                        "answer": result["answer"],
+                        "score": result["score"],
+                        "context": context[0],
+                    }
+                )
         except Exception as e:
+            print(f"Error processing context: {e}")
             continue
 
     if not answers:
         return "Вибачте, я не можу знайти відповідь на це питання"
 
-    best_answer = max(answers, key=lambda x: x['score'])
-    return best_answer['answer']
+    best_answer = max(answers, key=lambda x: x["score"])
+    return best_answer["answer"]
