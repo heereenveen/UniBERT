@@ -1,56 +1,53 @@
 from config import DB_PATH
 import sqlite3
 
+
 def load_dataset():
     try:
         connection = sqlite3.connect(DB_PATH)
         cursor = connection.cursor()
-        
-        cursor.execute("""
-            SELECT c.context, q.question, q.answer, q.answer_start 
-            FROM contexts c 
+
+        cursor.execute(
+            """
+            SELECT c.context, q.question, q.answer, q.answer_start
+            FROM contexts c
             JOIN qa_pairs q ON c.id = q.context_id
-        """)
-        
+        """
+        )
+
         paragraphs = []
         current_context = None
         current_qas = []
-        
+
         for row in cursor.fetchall():
             context, question, answer, answer_start = row
-            
+
             if current_context != context:
                 if current_context is not None:
-                    paragraphs.append({
-                        "context": current_context,
-                        "qas": current_qas
-                    })
+                    paragraphs.append({"context": current_context, "qas": current_qas})
                 current_context = context
                 current_qas = []
-            
-            current_qas.append({
-                "question": question,
-                "answers": [{
-                    "text": answer,
-                    "answer_start": answer_start
-                }]
-            })
-        
+
+            current_qas.append(
+                {
+                    "question": question,
+                    "answers": [{"text": answer, "answer_start": answer_start}],
+                }
+            )
+
         if current_context is not None:
-            paragraphs.append({
-                "context": current_context,
-                "qas": current_qas
-            })
-            
+            paragraphs.append({"context": current_context, "qas": current_qas})
+
         connection.close()
         return paragraphs
-        
+
     except sqlite3.Error as e:
         print(f"Помилка при роботі з базою даних: {str(e)}")
         return None
     except Exception as e:
         print(f"Виникла помилка при завантаженні даних: {str(e)}")
         return None
+
 
 def preprocess_data(batch, tokenizer):
     contexts = []
@@ -74,7 +71,7 @@ def preprocess_data(batch, tokenizer):
                 max_length=180,
                 padding="max_length",
                 return_offsets_mapping=True,
-                return_tensors="pt"
+                return_tensors="pt",
             )
 
             offsets = tokenized_context.pop("offset_mapping")

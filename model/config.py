@@ -16,7 +16,7 @@ TRAINING_ARGS = {
     "logging_dir": "./logs",
     "logging_steps": 10,
     "fp16": True,
-    "report_to": "none"
+    "report_to": "none",
 }
 
 MAX_LENGTH = 512
