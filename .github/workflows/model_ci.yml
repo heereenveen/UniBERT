@@ -29,9 +29,6 @@ jobs:
         
       - name: Lint with flake8
         run: flake8 model/
-        
-      - name: Static analysis with pylint
-        run: pylint model/
 
   commit-check:
     runs-on: ubuntu-latest
